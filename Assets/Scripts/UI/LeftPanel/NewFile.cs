@@ -1,16 +1,15 @@
+using System.IO;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class NewFile : MonoBehaviour
+public class NewFile : MonoBehaviour, IPointerDownHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        
-    }
+        if (!PlayerPrefs.HasKey("Path")) return;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        File.Create(PlayerPrefs.GetString("Path") + "\\" + Random.Range(0.0f, 100.0f) + ".txt");
+
+        Events.RefreshFileList.Invoke();
     }
 }
