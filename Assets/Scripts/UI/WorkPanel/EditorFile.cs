@@ -1,3 +1,4 @@
+using System.IO;
 using TMPro;
 using UnityEngine;
 
@@ -10,5 +11,11 @@ public class EditorFile : MonoBehaviour
     {
         labelTxt.text = label;
         contentTxt.text = content;
+    }
+
+    public void Save()
+    {
+        File.WriteAllText(PlayerPrefs.GetString("Path") + "\\" + labelTxt.text, 
+            contentTxt.text);
     }
 }
