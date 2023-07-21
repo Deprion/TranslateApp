@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,18 +5,18 @@ using UnityEngine.EventSystems;
 public class LinkOpener : MonoBehaviour, IPointerDownHandler
 {
     private TMP_Text text;
-    private new Camera camera;
+    private Camera cam;
 
     private void Awake()
     {
-        camera = Camera.main;
+        cam = Camera.main;
         text = gameObject.GetComponent<TMP_Text>();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         int linkIndex = TMP_TextUtilities.FindIntersectingLink
-            (text, Input.mousePosition, camera);
+            (text, Input.mousePosition, cam);
 
         if (linkIndex != -1)
         {
