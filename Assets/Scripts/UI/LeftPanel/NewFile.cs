@@ -8,7 +8,8 @@ public class NewFile : MonoBehaviour, IPointerDownHandler
     {
         if (!PlayerPrefs.HasKey("Path")) return;
 
-        File.Create(PlayerPrefs.GetString("Path") + "\\" + Random.Range(0.0f, 100.0f) + ".txt");
+        using (File.Create(PlayerPrefs.GetString("Path") + "\\" + "File" +
+            Random.Range(0.0f, 100.0f) + ".txt"))
 
         Events.RefreshFileList.Invoke();
     }
