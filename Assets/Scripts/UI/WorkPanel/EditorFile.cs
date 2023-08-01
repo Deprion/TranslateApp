@@ -13,6 +13,14 @@ public class EditorFile : MonoBehaviour
         contentTxt.text = content;
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.RightShift))
+        {
+            contentTxt.text = contentTxt.text.Insert(contentTxt.caretPosition, "\n");
+        }
+    }
+
     public void Save()
     {
         File.WriteAllText(PlayerPrefs.GetString("Path") + "\\" + labelTxt.text, 

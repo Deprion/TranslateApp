@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -6,7 +5,14 @@ public class WorkManager : MonoBehaviour
 {
     [SerializeField] private GameObject editFile;
 
-    private List<EditorFile> files = new List<EditorFile>();
+    private EditorFile file;
+
+    public void CloseFile()
+    {
+        Save();
+
+        if (file != null) Destroy(file.gameObject);
+    }
 
     private void Awake()
     {
@@ -16,19 +22,20 @@ public class WorkManager : MonoBehaviour
     }
 
     private void Save()
-    { 
-        foreach (var file in files) 
-        {
-            file.Save();
-        }
+    {
+        if (file != null) file.Save();
     }
 
     private void OpenFile(string str)
     {
+        Save();
+
+        if (file != null) Destroy(file.gameObject);
+
         var obj = Instantiate(editFile, transform, false);
         string name = PlayerPrefs.GetString("Path") + "\\" + str;
-        obj.GetComponent<EditorFile>().Init(str, File.ReadAllText(name));
 
-        files.Add(obj.GetComponent<EditorFile>());
+        file = obj.GetComponent<EditorFile>();
+        file.Init(str, File.ReadAllText(name));
     }
 }
